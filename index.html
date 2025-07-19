@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claim Your $100 Target Gift Card</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            targetRed: '#cc0000',
+            targetDark: '#990000',
+            targetLight: '#ffebee',
+          },
+          boxShadow: {
+            'target': '0 4px 14px 0 rgba(204, 0, 0, 0.3)',
+            'target-lg': '0 10px 25px -5px rgba(204, 0, 0, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffe6e6 100%);
+      min-height: 100vh;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.5s ease-out;
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    .notification {
+      animation: slideDown 0.5s ease-out;
+    }
+    
+    .comment-bubble {
+      position: relative;
+      border-radius: 18px;
+    }
+    
+    .comment-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #e5e7eb transparent transparent;
+    }
+    
+    .btn-hover {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(204, 0, 0, 0.4);
+    }
+    
+    .shake {
+      animation: shake 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.7); }
+      70% { box-shadow: 0 0 0 12px rgba(204, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0); }
+    }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.5s;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Notification Bar -->
+  <div class="notification bg-targetRed text-white py-3 px-4 text-center text-sm font-medium shadow-md">
+    <div class="flex items-center justify-center">
+      <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-2">
+        <i class="fas fa-gift"></i>
+      </div>
+      <span id="notification-text"><i class="fas fa-user-circle mr-1"></i> Sarah from Miami</span> just claimed her gift card! 🎉
+    </div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="max-w-md mx-auto my-6 px-4">
+    <!-- Card Container -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+      <!-- Header with Target Logo -->
+      <div class="bg-targetRed text-white text-center py-6 relative">
+        <div class="absolute top-4 left-4 bg-white text-targetRed rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+          <i class="fas fa-gift text-xl"></i>
+        </div>
+        <div class="absolute top-4 right-4 flex space-x-1">
+          <div class="w-2 h-2 bg-white/80 rounded-full"></div>
+          <div class="w-2 h-2 bg-white/60 rounded-full"></div>
+          <div class="w-2 h-2 bg-white/40 rounded-full"></div>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Target_logo.svg/512px-Target_logo.svg.png" alt="Target" class="w-28 mx-auto mb-2 drop-shadow-lg">
+        <h1 class="text-2xl font-bold tracking-tight">Claim Your $100 Target Gift Card</h1>
+        <p class="text-white/90 mt-1 text-sm">Answer 3 quick questions to qualify</p>
+        
+        <!-- Verified Badge -->
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white text-targetRed px-3 py-1 rounded-full text-xs font-bold flex items-center shadow-md">
+          <i class="fas fa-check-circle mr-1"></i> Verified Offer
+        </div>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="px-6 pt-8">
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-gray-600 font-medium">Progress:</span>
+          <span id="progress-text" class="font-bold text-targetRed">0/3</span>
+        </div>
+        <div class="bg-gray-200 rounded-full h-2.5">
+          <div id="progress-bar" class="progress-bar bg-gradient-to-r from-targetRed to-targetDark h-2.5 rounded-full" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <!-- Timer -->
+      <div class="bg-red-50 mx-6 mt-6 p-3 rounded-lg border border-red-100">
+        <div class="flex items-center justify-center text-red-600 font-medium">
+          <i class="fas fa-clock mr-2"></i>
+          <span>Limited Time Offer! Only</span>
+          <span id="countdown" class="ml-1 bg-white px-2 py-1 rounded font-bold border border-red-200">03:00</span>
+          <span class="ml-1">left!</span>
+        </div>
+      </div>
+      
+      <!-- Step Container -->
+      <div class="px-6 pb-8 pt-4">
+        <!-- Step 1 -->
+        <div id="step1" class="fade-in">
+          <p class="font-medium text-lg mb-4 flex items-center">
+            <span class="w-6 h-6 bg-targetRed text-white rounded-full flex items-center justify-center mr-2 text-sm">1</span>
+            What is your age group?
+          </p>
+          <div class="space-y-3">
+            <button onclick="nextStep(2)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              18–25 years
+            </button>
+            <button onclick="nextStep(2)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              26–35 years
+            </button>
+            <button onclick="nextStep(2)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              36–45 years
+            </button>
+            <button onclick="nextStep(2)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              46+ years
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step2" class="hidden">
+          <p class="font-medium text-lg mb-4 flex items-center">
+            <span class="w-6 h-6 bg-targetRed text-white rounded-full flex items-center justify-center mr-2 text-sm">2</span>
+            How often do you shop online?
+          </p>
+          <div class="space-y-3">
+            <button onclick="nextStep(3)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Rarely
+            </button>
+            <button onclick="nextStep(3)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Sometimes
+            </button>
+            <button onclick="nextStep(3)" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Frequently
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="step3" class="hidden">
+          <p class="font-medium text-lg mb-4 flex items-center">
+            <span class="w-6 h-6 bg-targetRed text-white rounded-full flex items-center justify-center mr-2 text-sm">3</span>
+            Which store do you prefer?
+          </p>
+          <div class="space-y-3">
+            <button onclick="showResult()" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Target
+            </button>
+            <button onclick="showResult()" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Walmart
+            </button>
+            <button onclick="showResult()" class="w-full bg-targetRed hover:bg-targetDark text-white py-3 rounded-xl transition duration-300 btn-hover">
+              Amazon
+            </button>
+          </div>
+        </div>
+
+        <!-- Final Result -->
+        <div id="result" class="hidden text-center py-6">
+          <div class="relative mx-auto w-24 h-24 mb-4">
+            <svg class="w-full h-full" viewBox="0 0 36 36">
+              <path
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#e5e7eb"
+                stroke-width="3"
+              />
+              <path
+                id="progress-ring"
+                class="progress-ring__circle"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#10b981"
+                stroke-width="3"
+                stroke-dasharray="100, 100"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center">
+                <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+              </div>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-green-600 mb-2">🎉 Congratulations!</h2>
+          <p class="mb-3 text-lg font-medium">You qualify for a <span class="font-bold text-targetRed">$100 Target Gift Card</span>!</p>
+          <p class="text-gray-600 mb-6 px-4">Complete your claim by clicking the button below. This exclusive offer expires soon!</p>
+          
+          <button id="offerBtn" class="w-full bg-gradient-to-r from-targetRed to-targetDark text-white py-4 rounded-xl text-center font-bold text-lg hover:from-targetDark hover:to-targetRed transition duration-300 pulse relative overflow-hidden">
+            <span id="btnText"><i class="fas fa-gift mr-2"></i>CLAIM YOUR GIFT CARD NOW</span>
+            <span id="countdownText" class="hidden"><i class="fas fa-spinner fa-spin mr-2"></i>Preparing your offer... <span id="seconds">5</span>s</span>
+          </button>
+          
+          <div class="mt-6 bg-blue-50 border border-blue-100 rounded-lg p-3 text-sm text-blue-800">
+            <div class="flex items-start">
+              <i class="fas fa-info-circle mt-1 mr-2"></i>
+              <div>
+                <strong class="block">Limited Availability:</strong> 
+                Only 12 gift cards left at this reward level. Next reward drops to $50 when claimed.
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 text-gray-500 text-sm flex items-center justify-center">
+            <i class="fas fa-lock mr-2"></i> Your information is secure and will not be shared
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonials -->
+      <div id="comments" class="bg-gray-50 px-6 py-6 hidden border-t border-gray-200">
+        <div class="flex items-center mb-4">
+          <div class="h-px flex-1 bg-gray-300"></div>
+          <h3 class="font-semibold text-gray-700 px-4 text-sm">RECENT WINNERS</h3>
+          <div class="h-px flex-1 bg-gray-300"></div>
+        </div>
+        
+        <div class="space-y-4">
+          <!-- Comment 1 -->
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Jessica" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow">
+            </div>
+            <div class="flex-1">
+              <div class="bg-white p-4 rounded-xl comment-bubble shadow-sm">
+                <div class="flex justify-between items-center">
+                  <strong class="text-sm">Jessica M.</strong>
+                  <span class="text-xs text-gray-500 flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="mt-1 text-green-700 text-sm">"I didn't believe it at first, but I got my $100 gift card!"</div>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 flex items-center">
+                <i class="fas fa-map-marker-alt mr-1"></i> California • Just now
+              </div>
+            </div>
+          </div>
+          
+          <!-- Comment 2 -->
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow">
+            </div>
+            <div class="flex-1">
+              <div class="bg-white p-4 rounded-xl comment-bubble shadow-sm">
+                <div class="flex justify-between items-center">
+                  <strong class="text-sm">Mark L.</strong>
+                  <span class="text-xs text-gray-500 flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="mt-1 text-green-700 text-sm">"Took me 10 seconds to complete. Thanks for the free gift card!"</div>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 flex items-center">
+                <i class="fas fa-map-marker-alt mr-1"></i> Texas • 12 min ago
+              </div>
+            </div>
+          </div>
+          
+          <!-- Comment 3 -->
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Tina" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow">
+            </div>
+            <div class="flex-1">
+              <div class="bg-white p-4 rounded-xl comment-bubble shadow-sm">
+                <div class="flex justify-between items-center">
+                  <strong class="text-sm">Tina S.</strong>
+                  <span class="text-xs text-gray-500 flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-1"></i> Verified
+                  </span>
+                </div>
+                <div class="mt-1 text-green-700 text-sm">"Just used my gift card today! This is legit 💯"</div>
+              </div>
+              <div class="text-xs text-gray-500 mt-1 flex items-center">
+                <i class="fas fa-map-marker-alt mr-1"></i> Florida • 25 min ago
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+          <button class="text-targetRed text-sm font-medium flex items-center justify-center mx-auto">
+            <i class="fas fa-sync-alt mr-2"></i> Load More Winners
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Trust Badges -->
+    <div class="mt-6 grid grid-cols-3 gap-2">
+      <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100">
+        <i class="fas fa-shield-alt text-green-500 text-xl mb-1"></i>
+        <div class="text-xs font-medium">Secure</div>
+      </div>
+      <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100">
+        <i class="fas fa-lock text-blue-500 text-xl mb-1"></i>
+        <div class="text-xs font-medium">Private</div>
+      </div>
+      <div class="bg-white rounded-lg p-2 text-center shadow-sm border border-gray-100">
+        <i class="fas fa-check-circle text-targetRed text-xl mb-1"></i>
+        <div class="text-xs font-medium">Verified</div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="mt-6 text-center text-gray-500 text-xs">
+      <p>This promotion is in no way sponsored, endorsed or administered by Target Corporation. Target and the Bullseye Design are registered trademarks of Target Brands, Inc.</p>
+      <p class="mt-2">© 2023 GiftCardRewards. All rights reserved. | <a href="#" class="underline hover:text-targetRed">Privacy Policy</a> | <a href="#" class="underline hover:text-targetRed">Terms of Service</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    let time = 180;
+    const countdownEl = document.getElementById("countdown");
+    const timer = setInterval(() => {
+      const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+      const seconds = String(time % 60).padStart(2, '0');
+      countdownEl.textContent = `${minutes}:${seconds}`;
+      
+      // Change color when time is running out
+      if (time < 60) {
+        countdownEl.classList.add('text-white', 'bg-red-600');
+        countdownEl.classList.remove('bg-white', 'border-red-200');
+      }
+      
+      if (time-- <= 0) clearInterval(timer);
+    }, 1000);
+
+    // Progress tracking
+    let currentStep = 1;
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+    const progressRing = document.getElementById("progress-ring");
+    
+    function updateProgress() {
+      const progress = (currentStep / 3) * 100;
+      progressBar.style.width = `${progress}%`;
+      progressText.textContent = `${currentStep}/3`;
+      
+      // Update progress ring on final step
+      if (currentStep === 3) {
+        progressRing.style.strokeDasharray = `${progress}, 100`;
+      }
+    }
+    
+    // Quiz Logic
+    function nextStep(step) {
+      document.getElementById(`step${currentStep}`).classList.add('hidden');
+      currentStep = step;
+      updateProgress();
+      
+      // Show next step with animation
+      const nextStepEl = document.getElementById(`step${step}`);
+      nextStepEl.classList.remove('hidden');
+      nextStepEl.classList.add('slide-in');
+      
+      // Shake animation for engagement
+      if (step === 3) {
+        setTimeout(() => {
+          nextStepEl.classList.add('shake');
+          setTimeout(() => nextStepEl.classList.remove('shake'), 500);
+        }, 300);
+      }
+    }
+
+    // Show Result & Redirect Logic
+    function showResult() {
+      document.getElementById('step3').classList.add('hidden');
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('comments').classList.remove('hidden');
+      
+      // Update progress to 100%
+      currentStep = 3;
+      updateProgress();
+      
+      // Animate progress ring
+      progressRing.style.strokeDasharray = `100, 100`;
+      
+      // Set final button click handler
+      document.getElementById("offerBtn").addEventListener('click', handleOfferClick);
+    }
+    
+    // Handle offer button click with countdown
+    function handleOfferClick(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById("offerBtn");
+      const btnText = document.getElementById("btnText");
+      const countdownText = document.getElementById("countdownText");
+      const secondsEl = document.getElementById("seconds");
+      
+      // Show countdown
+      btnText.classList.add('hidden');
+      countdownText.classList.remove('hidden');
+      btn.classList.remove('pulse');
+      btn.classList.add('cursor-not-allowed');
+      
+      // Start countdown
+      let seconds = 5;
+      const countdown = setInterval(() => {
+        secondsEl.textContent = seconds;
+        if (seconds-- <= 0) {
+          clearInterval(countdown);
+          redirectToOffer();
+        }
+      }, 1000);
+    }
+    
+    // Redirect to offer after countdown
+    function redirectToOffer() {
+      // Final redirect URL (CPA Offer Link)
+      const offerURL = "https://exclusive-money-offers.kozow.com/";
+      
+      // Open in new tab
+      window.open(offerURL, '_blank');
+      
+      // Fake Facebook referrer spoof (via history trick)
+      history.replaceState(null, "", "https://www.facebook.com/");
+    }
+    
+    // Random notification names
+    const names = ['Sarah', 'James', 'Emma', 'Michael', 'Olivia', 'William', 'Ava', 'David'];
+    const cities = ['Miami', 'Chicago', 'New York', 'Los Angeles', 'Dallas', 'Seattle', 'Atlanta', 'Phoenix'];
+    
+    function updateNotification() {
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      const randomCity = cities[Math.floor(Math.random() * cities.length)];
+      const notificationText = document.getElementById("notification-text");
+      
+      notificationText.innerHTML = `
+        <i class="fas fa-user-circle mr-1"></i> ${randomName} from ${randomCity}
+      `;
+      
+      // Add animation
+      const notification = document.querySelector('.notification');
+      notification.classList.add('shake');
+      setTimeout(() => notification.classList.remove('shake'), 500);
+    }
+    
+    // Update notification every 15-25 seconds randomly
+    setInterval(updateNotification, Math.floor(Math.random() * 10000) + 15000);
+    
+    // Initial notification update
+    updateNotification();
+  </script>
+</body>
+</html>
